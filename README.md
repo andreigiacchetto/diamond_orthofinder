@@ -113,7 +113,8 @@ python diamond_orthofinder.py -i ./proteins -o ./out -t 64 -s diamond
 
 ## 📄 License
 
-Free for academic use.
+This project is freely available for academic and scientific use. For commercial use, please contact the author.
+
 
 ------------------------------------------------------------------------
 
