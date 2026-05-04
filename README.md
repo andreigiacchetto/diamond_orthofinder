@@ -1,31 +1,31 @@
-# 🧬 diamond_orthofinder
+# 🧬 diamond_orthofinder.py
 
-Pipeline automatizado para executar o OrthoFinder utilizando DIAMOND (ou
-BLAST) com execução paralela eficiente e suporte a retomada de análises
-interrompidas.
+An automated pipeline to run OrthoFinder using DIAMOND (or BLAST) with
+efficient parallel execution and resume support for interrupted
+analyses.
 
 ------------------------------------------------------------------------
 
 ## 🛠️ Features
 
--   Integra automaticamente com o OrthoFinder (`-op` e `-b`)
--   Geração automática de comandos de alinhamento (DIAMOND ou BLAST)
--   Execução paralela real (multi-processo externo)
--   Sistema de checkpoint/retomada baseado em hash dos comandos
--   Conversão automática de arquivos `.diamond(.gz)` para formato
-    compatível (`BlastX_Y.txt`)
--   Detecção automática do `WorkingDirectory`
--   Evita recomputação de resultados já existentes
--   Logging de progresso (`blast_progress.log`)
+-   Seamless integration with OrthoFinder (`-op` and `-b`)
+-   Automatic generation of alignment commands (DIAMOND or BLAST)
+-   True parallel execution (external multi-process jobs)
+-   Checkpoint/resume system based on command hashing
+-   Automatic conversion of `.diamond(.gz)` files to
+    OrthoFinder-compatible format (`BlastX_Y.txt`)
+-   Automatic detection of `WorkingDirectory`
+-   Avoids recomputation of existing results
+-   Progress logging (`blast_progress.log`)
 
 ------------------------------------------------------------------------
 
 ## 📦 Requirements
 
 -   Python 3.x
--   OrthoFinder instalado e no PATH
--   DIAMOND (recomendado) ou BLAST+
--   Sistema Linux/Unix
+-   OrthoFinder installed and available in PATH
+-   DIAMOND (recommended) or BLAST+
+-   Linux/Unix system
 
 ------------------------------------------------------------------------
 
@@ -33,8 +33,8 @@ interrompidas.
 
 ``` bash
 python diamond_orthofinder.py \
-    -i /caminho/para/fasta_dir \
-    -o /caminho/saida \
+    -i /path/to/fasta_dir \
+    -o /path/to/output \
     -t 32 \
     -s diamond
 ```
@@ -43,47 +43,43 @@ python diamond_orthofinder.py \
 
 ## 🔄 Pipeline Overview
 
-### FASE 1 -- Preparação
-
-Executa:
+### PHASE 1 -- Preparation
 
     orthofinder -f INPUT -o OUTPUT -op
 
-### FASE 2 -- Alinhamentos paralelos
+### PHASE 2 -- Parallel alignments
 
-Executa múltiplos alinhamentos simultaneamente com 1 thread por job.
+Runs multiple alignments simultaneously with 1 thread per job.
 
-### FASE 2.5 -- Conversão
+### PHASE 2.5 -- Conversion
 
-Converte `.diamond(.gz)` → `BlastX_Y.txt`
+Converts `.diamond(.gz)` → `BlastX_Y.txt`
 
-### FASE 3 -- Finalização
-
-Executa:
+### PHASE 3 -- Finalization
 
     orthofinder -og -b WorkingDirectory
 
 ------------------------------------------------------------------------
 
-## ⚡ Paralelização
+## ⚡ Parallelization
 
-O script força: - DIAMOND: `-p 1` - BLAST: `-num_threads 1`
+The script enforces: - DIAMOND: `-p 1` - BLAST: `-num_threads 1`
 
-E paraleliza via múltiplos processos.
+Parallelization is achieved by running multiple processes.
 
 ------------------------------------------------------------------------
 
-## ♻️ Retomada automática
+## ♻️ Resume capability
 
-Arquivo gerado:
+File generated:
 
     blast_progress.log
 
-Permite continuar execuções interrompidas automaticamente.
+Allows automatic continuation of interrupted runs.
 
 ------------------------------------------------------------------------
 
-## 📁 Estrutura esperada
+## 📁 Expected structure
 
 ### Input
 
@@ -99,7 +95,7 @@ Permite continuar execuções interrompidas automaticamente.
 
 ------------------------------------------------------------------------
 
-## 🧪 Exemplo
+## 🧪 Example
 
 ``` bash
 python diamond_orthofinder.py -i ./proteins -o ./out -t 64 -s diamond
@@ -109,15 +105,15 @@ python diamond_orthofinder.py -i ./proteins -o ./out -t 64 -s diamond
 
 ## ❗ Notes
 
--   Detecta automaticamente `WorkingDirectory`
--   Não reprocessa arquivos existentes
--   Compatível com `.diamond.gz`
+-   Automatically detects `WorkingDirectory`
+-   Does not reprocess existing files
+-   Compatible with `.diamond.gz`
 
 ------------------------------------------------------------------------
 
 ## 📄 License
 
-Uso acadêmico livre.
+Free for academic use.
 
 ------------------------------------------------------------------------
 
