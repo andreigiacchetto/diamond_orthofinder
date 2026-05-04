@@ -1,4 +1,4 @@
-# 🧬 diamond_orthofinder.py
+# 🧬 diamond_orthofinder
 
 An automated pipeline to run OrthoFinder using DIAMOND (or BLAST) with
 efficient parallel execution and resume support for interrupted
